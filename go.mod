@@ -1,5 +1,5 @@
 module github.com/bsssshhhhhhh/berkbot
 
-go 1.14
+go 1.16
 
-require github.com/bwmarrin/discordgo v0.24.0 // indirect
+require github.com/bwmarrin/discordgo v0.24.0
