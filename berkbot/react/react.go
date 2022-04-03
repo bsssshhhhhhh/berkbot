@@ -1,6 +1,8 @@
 package berkbot_react
 
 import (
+	"fmt"
+
 	"github.com/bwmarrin/discordgo"
 )
 
@@ -12,7 +14,11 @@ func React(s *discordgo.Session, m *discordgo.MessageCreate) {
 	for _, reaction := range reactions {
 		emoji := reaction(s, m)
 		if emoji != nil {
-			s.MessageReactionAdd(m.ChannelID, m.Message.ID, emoji.ID)
+			err := s.MessageReactionAdd(m.ChannelID, m.Message.ID, emoji.ID)
+
+			if err != nil {
+				fmt.Println("Could not react to message")
+			}
 		}
 	}
 }
