@@ -4,6 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/bsssshhhhhhh/berkbot/berkbot"
 	"github.com/bwmarrin/discordgo"
@@ -40,4 +42,10 @@ func main() {
 	}
 
 	berkbot.AddCommands(discord)
+
+	sc := make(chan os.Signal, 1)
+	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
+	<-sc
+
+	discord.Close()
 }
