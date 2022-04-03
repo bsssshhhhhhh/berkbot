@@ -8,7 +8,10 @@ import (
 
 type Reaction func(s *discordgo.Session, m *discordgo.MessageCreate) *discordgo.Emoji
 
-var reactions = []Reaction{ReeReaction}
+var reactions = []Reaction{
+	ReeReaction,
+	KyleReaction,
+}
 
 func React(s *discordgo.Session, m *discordgo.MessageCreate) {
 	for _, reaction := range reactions {
