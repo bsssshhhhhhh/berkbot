@@ -11,6 +11,7 @@ type Reaction func(s *discordgo.Session, m *discordgo.MessageCreate) *discordgo.
 var reactions = []Reaction{
 	ReeReaction,
 	KyleReaction,
+	BrainReaction,
 }
 
 func React(s *discordgo.Session, m *discordgo.MessageCreate) {
