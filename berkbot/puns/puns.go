@@ -10,9 +10,8 @@ var puns = []string{
 	"tbd",
 }
 
-func GetRandomPun() string {
-	randomIndex := rand.Intn(len(puns))
-	return puns[randomIndex]
+func getRandomPun() string {
+	return puns[rand.Intn(len(puns))]
 }
 
 func Pun(s *discordgo.Session, m *discordgo.MessageCreate) {
@@ -21,6 +20,6 @@ func Pun(s *discordgo.Session, m *discordgo.MessageCreate) {
 	}
 
 	if m.Content == "!pun" {
-		s.ChannelMessageSend(m.ChannelID, GetRandomPun())
+		s.ChannelMessageSend(m.ChannelID, getRandomPun())
 	}
 }
