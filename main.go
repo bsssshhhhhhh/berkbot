@@ -43,6 +43,8 @@ func main() {
 
 	berkbot.AddCommands(discord)
 
+	fmt.Println("Berkbot running. Waiting for ctrl-c to exit")
+
 	sc := make(chan os.Signal, 1)
 	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
 	<-sc
