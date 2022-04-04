@@ -4,12 +4,12 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-func Ping(s *discordgo.Session, m *discordgo.MessageCreate) {
-	if m.Author.ID == s.State.User.ID {
+func Ping(session *discordgo.Session, message *discordgo.MessageCreate) {
+	if message.Author.ID == session.State.User.ID {
 		return
 	}
 
-	if m.Content == "!ping" {
-		s.ChannelMessageSend(m.ChannelID, "pong")
+	if message.Content == "!ping" {
+		session.ChannelMessageSend(message.ChannelID, "pong")
 	}
 }
