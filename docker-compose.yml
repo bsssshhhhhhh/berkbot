@@ -6,5 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
 
+    restart: unless-stopped
+    volumes:
+      - ./logs:/var/log
     env_file:
       - .env
