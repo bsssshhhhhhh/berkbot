@@ -7,8 +7,8 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-func AddCommands(s *discordgo.Session) {
-	s.AddHandler(berkbot_ping.Ping)
-	s.AddHandler(berkbot_puns.Pun)
-	s.AddHandler(berkbot_react.React)
+func AddCommands(session *discordgo.Session) {
+	session.AddHandler(berkbot_ping.Ping)
+	session.AddHandler(berkbot_puns.Pun)
+	session.AddHandler(berkbot_react.React)
 }

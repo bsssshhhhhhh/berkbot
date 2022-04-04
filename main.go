@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"fmt"
+	"log"
 	"os"
 	"os/signal"
 	"syscall"
@@ -31,19 +31,19 @@ func main() {
 
 	discord, err := discordgo.New("Bot " + Token)
 	if err != nil {
-		fmt.Println("Error creating Discord session: ", err)
+		log.Println("Error creating Discord session: ", err)
 		return
 	}
 
 	err = discord.Open()
 	if err != nil {
-		fmt.Println("Could not connect to Discord: ", err)
+		log.Println("Could not connect to Discord: ", err)
 		return
 	}
 
 	berkbot.AddCommands(discord)
 
-	fmt.Println("Berkbot running. Waiting for ctrl-c to exit")
+	log.Println("Berkbot running. Waiting for ctrl-c to exit")
 
 	sc := make(chan os.Signal, 1)
 	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
