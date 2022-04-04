@@ -8,8 +8,8 @@ import (
 
 var BrainEmoji string = "🧠"
 
-func BrainReaction(s *discordgo.Session, m *discordgo.MessageCreate) (*discordgo.Emoji, *string) {
-	match, _ := regexp.MatchString("brain", m.Content)
+func BrainReaction(session *discordgo.Session, message *discordgo.MessageCreate) (*discordgo.Emoji, *string) {
+	match, _ := regexp.MatchString("brain", message.Content)
 
 	if match {
 		return nil, &BrainEmoji

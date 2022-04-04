@@ -1,19 +1,19 @@
 package berkbot_react
 
 import (
-	"fmt"
+	"log"
 	"regexp"
 
 	"github.com/bwmarrin/discordgo"
 )
 
-func KyleReaction(s *discordgo.Session, m *discordgo.MessageCreate) (*discordgo.Emoji, *string) {
-	match, _ := regexp.MatchString("k.*y.*l.*e", m.Content)
+func KyleReaction(session *discordgo.Session, message *discordgo.MessageCreate) (*discordgo.Emoji, *string) {
+	match, _ := regexp.MatchString("k.*y.*l.*e", message.Content)
 
 	if match {
-		guild, err := s.Guild(m.GuildID)
+		guild, err := session.Guild(message.GuildID)
 		if err != nil {
-			fmt.Println("Could not get guild "+m.GuildID+": ", err)
+			log.Println("Could not get guild "+message.GuildID+": ", err)
 			return nil, nil
 		}
 

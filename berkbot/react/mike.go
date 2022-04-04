@@ -1,24 +1,24 @@
 package berkbot_react
 
 import (
-	"log"
+	"fmt"
 	"regexp"
 
 	"github.com/bwmarrin/discordgo"
 )
 
-func ReeReaction(session *discordgo.Session, message *discordgo.MessageCreate) (*discordgo.Emoji, *string) {
-	match, _ := regexp.MatchString("\bre{2,}", message.Content)
+func MikeReaction(session *discordgo.Session, message *discordgo.MessageCreate) (*discordgo.Emoji, *string) {
+	match, _ := regexp.MatchString("mike", message.Content)
 
 	if match {
 		guild, err := session.Guild(message.GuildID)
 		if err != nil {
-			log.Println("Could not get guild " + message.GuildID)
+			fmt.Println("Could not get guild "+message.GuildID+": ", err)
 			return nil, nil
 		}
 
 		for _, emoji := range guild.Emojis {
-			if emoji.Name == "ree" {
+			if emoji.Name == "mike" {
 				return emoji, nil
 			}
 		}

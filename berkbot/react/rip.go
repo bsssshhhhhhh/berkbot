@@ -7,18 +7,18 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-func ReeReaction(session *discordgo.Session, message *discordgo.MessageCreate) (*discordgo.Emoji, *string) {
-	match, _ := regexp.MatchString("\bre{2,}", message.Content)
+func RipReaction(session *discordgo.Session, message *discordgo.MessageCreate) (*discordgo.Emoji, *string) {
+	match, _ := regexp.MatchString("r\\.?i\\.?p\\.?", message.Content)
 
 	if match {
 		guild, err := session.Guild(message.GuildID)
 		if err != nil {
-			log.Println("Could not get guild " + message.GuildID)
+			log.Println("Could not get guild "+message.GuildID+": ", err)
 			return nil, nil
 		}
 
 		for _, emoji := range guild.Emojis {
-			if emoji.Name == "ree" {
+			if emoji.Name == "rip" {
 				return emoji, nil
 			}
 		}

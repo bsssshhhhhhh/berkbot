@@ -1,33 +1,35 @@
 package berkbot_react
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/bwmarrin/discordgo"
 )
 
-type Reaction func(s *discordgo.Session, m *discordgo.MessageCreate) (*discordgo.Emoji, *string)
+type Reaction func(session *discordgo.Session, message *discordgo.MessageCreate) (*discordgo.Emoji, *string)
 
 var reactions = []Reaction{
 	ReeReaction,
 	KyleReaction,
 	BrainReaction,
+	MikeReaction,
+	RipReaction,
 }
 
-func React(s *discordgo.Session, m *discordgo.MessageCreate) {
+func React(session *discordgo.Session, message *discordgo.MessageCreate) {
 	for _, reaction := range reactions {
-		emoji, str := reaction(s, m)
+		emoji, str := reaction(session, message)
 		var err error
 		if str != nil {
-			err = s.MessageReactionAdd(m.ChannelID, m.Message.ID, *str)
+			err = session.MessageReactionAdd(message.ChannelID, message.Message.ID, *str)
 		}
 
 		if emoji != nil {
-			err = s.MessageReactionAdd(m.ChannelID, m.Message.ID, emoji.APIName())
+			err = session.MessageReactionAdd(message.ChannelID, message.Message.ID, emoji.APIName())
 		}
 
 		if err != nil {
-			fmt.Println("could not add emoji:", err)
+			log.Println("could not add emoji:", err)
 		}
 	}
 }
