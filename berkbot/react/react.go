@@ -6,7 +6,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-type Reaction func(s *discordgo.Session, m *discordgo.MessageCreate) *discordgo.Emoji
+type Reaction func(s *discordgo.Session, m *discordgo.MessageCreate) (*discordgo.Emoji, *string)
 
 var reactions = []Reaction{
 	ReeReaction,
@@ -16,13 +16,18 @@ var reactions = []Reaction{
 
 func React(s *discordgo.Session, m *discordgo.MessageCreate) {
 	for _, reaction := range reactions {
-		emoji := reaction(s, m)
-		if emoji != nil {
-			err := s.MessageReactionAdd(m.ChannelID, m.Message.ID, emoji.ID)
+		emoji, str := reaction(s, m)
+		var err error
+		if str != nil {
+			err = s.MessageReactionAdd(m.ChannelID, m.Message.ID, *str)
+		}
 
-			if err != nil {
-				fmt.Println("Could not react to message")
-			}
+		if emoji != nil {
+			err = s.MessageReactionAdd(m.ChannelID, m.Message.ID, emoji.APIName())
+		}
+
+		if err != nil {
+			fmt.Println("could not add emoji:", err)
 		}
 	}
 }
